@@ -4,9 +4,13 @@ module TidyStrongParams
     self._attributes = {}
     attr_accessor :raw_controller_params, :resource_name
     
-    def initialize(raw_controller_params, resource_name:)
+    def initialize(raw_controller_params:, resource_name:)
       self.raw_controller_params = raw_controller_params
       self.resource_name = resource_name
+    end
+
+    def self.build_list(*args)
+      new(*args).build_list
     end
 
     class << self

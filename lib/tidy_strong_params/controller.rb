@@ -3,18 +3,15 @@ require 'tidy_strong_params/resource'
 module TidyStrongParams
   module Controller
     extend ActiveSupport::Concern
-    included do |base|
-      def initialize
-        name = self.class.name
-        self.instance_eval %Q"
-          def #{::TidyStrongParams::Resource.prams_method_name(controller_class: name)}
-            resource = ::TidyStrongParams::Resource.new(controller_class: self.class.name)
-            safe_params_class = resource.safe_params_class.new(params, resource_name: resource.name)
-            safe_params_class.build_list
-          end
-        "
+    module ClassMethods
+      def inherited(klass)
         super
-      end
+        resource = ::TidyStrongParams::Resource.new(controller_class: klass.name)
+        return if method_defined?(resource.prams_method_name)
+        define_method(resource.prams_method_name) do
+          resource.safe_params_class.build_list(raw_controller_params: params, resource_name: resource.name)
+        end
+       end
     end
   end
 end
