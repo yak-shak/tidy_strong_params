@@ -1,7 +1,7 @@
 require "spec_helper"
-require "fixtures/params/original_gangster_safe_params"
+require "fixtures/params/original_gangster_strong_params"
 
-RSpec.describe TidyStrongParams::SafeParams do
+RSpec.describe TidyStrongParams::StrongParams do
   let(:raw_controller_params) do 
     ActionController::Parameters.new({
       original_gangster: {
@@ -16,7 +16,7 @@ RSpec.describe TidyStrongParams::SafeParams do
     })
   end
   let(:resource_name) { "original_gangster" }
-  subject { OriginalGangsterSafeParams.build_list(raw_controller_params:raw_controller_params, resource_name: resource_name) }
+  subject { OriginalGangsterStrongParams.build_list(raw_controller_params:raw_controller_params, resource_name: resource_name) }
   
   it "allows listed params" do
     expect(subject.keys).to include("infamy")

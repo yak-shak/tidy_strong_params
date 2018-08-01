@@ -1,6 +1,6 @@
 module TidyStrongParams
   class Resource
-    attr_accessor :controller_class, :safe_params_class
+    attr_accessor :controller_class, :strong_params_class
    
     def initialize(controller_class:)
       self.controller_class = controller_class
@@ -18,10 +18,10 @@ module TidyStrongParams
       "#{name}_params"
     end
 
-    def safe_params_class
-      return @safe_params_class if @safe_params_class
-      klass = "::#{params_class_name}SafeParams".safe_constantize
-      @safe_params_class = klass || TidyStrongParams::SafeParams
+    def strong_params_class
+      return @strong_params_class if @strong_params_class
+      klass = "::#{params_class_name}StrongParams".safe_constantize
+      @strong_params_class = klass || TidyStrongParams::StrongParams
     end
 
     private

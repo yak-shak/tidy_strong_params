@@ -1,5 +1,5 @@
 module TidyStrongParams
-  class SafeParams
+  class StrongParams
     class_attribute :_attributes
     self._attributes = {}
     attr_accessor :raw_controller_params, :resource_name

@@ -1,5 +1,5 @@
 require "spec_helper"
-require "fixtures/params/original_gangster_safe_params"
+require "fixtures/params/original_gangster_strong_params"
 
 RSpec.describe TidyStrongParams::Resource do
   let(:controller_class) { "OriginalGangstersController" }
@@ -13,18 +13,18 @@ RSpec.describe TidyStrongParams::Resource do
     expect(subject.prams_method_name).to eq("original_gangster_params")
   end
   
-  describe "safe_params_class" do
+  describe "strong_params_class" do
     context "resource with a params class" do
-      it "returns a safe_params_class" do
-        expect(subject.safe_params_class).to eq(OriginalGangsterSafeParams)
+      it "returns a strong_params_class" do
+        expect(subject.strong_params_class).to eq(OriginalGangsterStrongParams)
       end
     end
 
     context "resource without params class" do
       let(:controller_class) { "NonExistantController" }
 
-      it "returns a safe_params_class" do
-        expect(subject.safe_params_class).to eq(TidyStrongParams::SafeParams)
+      it "returns a strong_params_class" do
+        expect(subject.strong_params_class).to eq(TidyStrongParams::StrongParams)
       end
     end
   end

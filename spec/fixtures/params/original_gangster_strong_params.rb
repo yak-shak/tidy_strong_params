@@ -1,4 +1,4 @@
-class OriginalGangsterSafeParams < TidyStrongParams::SafeParams
+class OriginalGangsterStrongParams < TidyStrongParams::StrongParams
   attributes  :infamy,
               :fortune,
               :sentence,
