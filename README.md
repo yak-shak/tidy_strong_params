@@ -1,8 +1,9 @@
 # TidyStrongParams
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tidy_strong_params`. To experiment with that code, run `bin/console` for an interactive prompt.
+Strong params can end up making your controllers very fat and form objects aren't always the best cure.
+Tidy Strong Params (TSP) takes inspiration from ActiveModelSerialiers and aims to separate param white-listing from the rest of your controller logic whilst also allowing for flexibility in it's implementation.
 
-TODO: Delete this and the text above, and describe your gem
+TSP provides a simple way for storing your list of white-listed params in their own directory, hopefully with minimal overhead.
 
 ## Installation
 
@@ -12,17 +13,28 @@ Add this line to your application's Gemfile:
 gem 'tidy_strong_params'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install tidy_strong_params
-
 ## Usage
 
-TODO: Write usage instructions here
+Create a params directory and create a params class inherting from `TidyStrongParams::StrongParams` for each whitelist
+
+```
+class BookParams < TidyStrongParams::StrongParams
+  attributes  :tile
+              :publisher,
+              :year,
+              authors: %i[first_name last_name]
+end
+```
+
+A parms method is created on each controller taking the resource name from the controller. eg. in the following example a `book_params` method is created and can be called by the controller.
+
+```
+Class BooksController < ApplicationController
+    def update
+        @book.update(book_params)
+    end
+end
+```
 
 ## Development
 
