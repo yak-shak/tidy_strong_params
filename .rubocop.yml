@@ -1,0 +1,4 @@
+AllCops:
+  Exclude:
+    - 'tidy_strong_params.gemspec'
+    - 'spec/*'

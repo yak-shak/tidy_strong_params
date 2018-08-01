@@ -3,6 +3,6 @@ class OriginalGangsterStrongParams < TidyStrongParams::StrongParams
               :fortune,
               :sentence,
               :time_served,
-              henchmen: [:first_name, :last_name],
+              henchmen: %i[first_name last_name],
               cities: []
 end

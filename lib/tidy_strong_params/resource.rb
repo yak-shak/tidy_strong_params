@@ -1,7 +1,7 @@
 module TidyStrongParams
-  class Resource
-    attr_accessor :controller_class, :strong_params_class
-   
+  class Resource # :nodoc:
+    attr_accessor :controller_class
+
     def initialize(controller_class:)
       self.controller_class = controller_class
     end
@@ -27,7 +27,7 @@ module TidyStrongParams
     private
 
     def params_class_name
-      controller_class.remove("Controller").singularize
+      controller_class.remove('Controller').singularize
     end
   end
 end

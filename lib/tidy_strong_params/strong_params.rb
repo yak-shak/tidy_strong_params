@@ -1,11 +1,11 @@
 module TidyStrongParams
-  class StrongParams
+  class StrongParams # :nodoc:
     class_attribute :_attributes
     self._attributes = {}
-    attr_accessor :raw_controller_params, :resource_name
-    
-    def initialize(raw_controller_params:, resource_name:)
-      self.raw_controller_params = raw_controller_params
+    attr_accessor :raw_params, :resource_name
+
+    def initialize(raw_params:, resource_name:)
+      self.raw_params = raw_params
       self.resource_name = resource_name
     end
 
@@ -20,7 +20,7 @@ module TidyStrongParams
     end
 
     def build_list
-      raw_controller_params.require(root_name).permit(_attributes).to_h
+      raw_params.require(root_name).permit(_attributes).to_h
     end
 
     def root_name
