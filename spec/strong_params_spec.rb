@@ -1,20 +1,9 @@
 require 'spec_helper'
 require 'fixtures/params/original_gangster_strong_params'
+require 'fixtures/raw_params'
 
 RSpec.describe TidyStrongParams::StrongParams do
-  let(:raw_params) do
-    ActionController::Parameters.new(
-      original_gangster: {
-        cities: %w[York London Lisbon],
-        infamy: 8,
-        henchmen: [
-          { first_name: 'Bob', last_name: 'Bobson' },
-          { first_name: 'Steve', last_name: 'Stephenson', location: 'Stevenage' }
-        ],
-        name: 'no allowed'
-      }
-    )
-  end
+  let(:raw_params) { RawParameters.original_gangster_params }
   let(:resource_name) { 'original_gangster' }
   subject { OriginalGangsterStrongParams.build_list(raw_params: raw_params, resource_name: resource_name) }
 

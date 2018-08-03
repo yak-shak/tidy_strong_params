@@ -9,10 +9,6 @@ RSpec.describe TidyStrongParams::Resource do
     expect(subject.name).to eq('original_gangster')
   end
 
-  it 'returns a prams_method_name' do
-    expect(subject.prams_method_name).to eq('original_gangster_params')
-  end
-
   describe 'strong_params_class' do
     context 'resource with a params class' do
       it 'returns a strong_params_class' do
@@ -31,13 +27,5 @@ RSpec.describe TidyStrongParams::Resource do
 
   it 'params_class_name correct string' do
     expect(subject.send(:params_class_name)).to eq('OriginalGangster')
-  end
-
-  describe 'class methods' do
-    describe 'self.prams_method_name' do
-      it 'returns a prams_method_name' do
-        expect(TidyStrongParams::Resource.prams_method_name(controller_class: controller_class)).to eq('original_gangster_params')
-      end
-    end
   end
 end

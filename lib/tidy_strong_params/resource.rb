@@ -6,16 +6,8 @@ module TidyStrongParams
       self.controller_class = controller_class
     end
 
-    def self.prams_method_name(*args)
-      new(*args).prams_method_name
-    end
-
     def name
       params_class_name.underscore
-    end
-
-    def prams_method_name
-      "#{name}_params"
     end
 
     def strong_params_class
