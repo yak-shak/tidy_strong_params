@@ -12,4 +12,22 @@ class RawParameters
       }
      )
   end
+
+  def self.original_gangster_with_required_params
+    ActionController::Parameters.new(
+      imitation_gangster: {
+        cities: %w[York London Lisbon],
+        infamy: 8,
+        name: 'no allowed'
+      }
+     )
+  end
+
+  def self.original_gangster_unnested_params
+    ActionController::Parameters.new(
+      cities: %w[York London Lisbon],
+      infamy: 8,
+      name: 'no allowed'
+     )
+  end
 end
