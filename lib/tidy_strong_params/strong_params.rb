@@ -27,12 +27,17 @@ module TidyStrongParams
     end
 
     def restrict
-      required_params.permit(_params).to_h
+      required_params.permit(_params).to_h.tap{ |whitelist| tap_params(whitelist) }
     end
+
+    private
 
     def required_params
       return raw_params if _required == false
       raw_params.require(_required || resource_name)
+    end
+
+    def tap_params(whitelist)
     end
   end
 end

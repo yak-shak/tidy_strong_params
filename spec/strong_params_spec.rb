@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'fixtures/params/original_gangster_strong_params'
 require 'fixtures/params/original_gangster_with_required_strong_params'
 require 'fixtures/params/original_gangster_without_required_strong_params'
+require 'fixtures/params/original_gangster_with_tap_params_strong_params'
 require 'fixtures/raw_parameters.rb'
 
 RSpec.describe TidyStrongParams::StrongParams do
@@ -28,7 +29,7 @@ RSpec.describe TidyStrongParams::StrongParams do
     expect(subject['henchmen'].last.keys).to_not include(:loaction)
   end
 
-  describe '"required" param' do
+  describe '#required' do
     subject { OriginalGangsterWithRequiredStrongParams.restrict(raw_params: raw_params, resource_name: resource_name) }
     
     context "required param present" do
@@ -52,6 +53,14 @@ RSpec.describe TidyStrongParams::StrongParams do
       it "doesn't enforce a required param" do
         expect(subject.keys).to eq(%w(infamy cities))
       end
+    end
+  end
+
+  describe '#tap_params' do
+    subject { OriginalGangsterWithTapParamsStrongParams.restrict(raw_params: raw_params, resource_name: resource_name) }
+
+    it "includes tap_params methods modifications" do
+      expect(subject[:crazy_meta_param]).to eq(4)
     end
   end
 end
