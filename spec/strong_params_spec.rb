@@ -7,7 +7,7 @@ require 'fixtures/raw_parameters.rb'
 RSpec.describe TidyStrongParams::StrongParams do
   let(:raw_params) { RawParameters.original_gangster_params }
   let(:resource_name) { 'original_gangster' }
-  subject { OriginalGangsterStrongParams.build_list(raw_params: raw_params, resource_name: resource_name) }
+  subject { OriginalGangsterStrongParams.restrict(raw_params: raw_params, resource_name: resource_name) }
 
   it 'allows listed params' do
     expect(subject.keys).to include('infamy')
@@ -29,7 +29,7 @@ RSpec.describe TidyStrongParams::StrongParams do
   end
 
   describe '"required" param' do
-    subject { OriginalGangsterWithRequiredStrongParams.build_list(raw_params: raw_params, resource_name: resource_name) }
+    subject { OriginalGangsterWithRequiredStrongParams.restrict(raw_params: raw_params, resource_name: resource_name) }
     
     context "required param present" do
       let(:raw_params) { RawParameters.original_gangster_with_required_params }
@@ -46,7 +46,7 @@ RSpec.describe TidyStrongParams::StrongParams do
     end
 
     context "required param set to false" do
-      subject { OriginalGangsterWithoutRequiredStrongParams.build_list(raw_params: raw_params, resource_name: resource_name) }
+      subject { OriginalGangsterWithoutRequiredStrongParams.restrict(raw_params: raw_params, resource_name: resource_name) }
       let(:raw_params) { RawParameters.original_gangster_unnested_params }
       
       it "doesn't enforce a required param" do

@@ -1,8 +1,8 @@
 module TidyStrongParams
   class StrongParams # :nodoc:
-    class_attribute :_attributes
+    class_attribute :_params
     class_attribute :_required
-    self._attributes = {}
+    self._params = {}
     self._required = nil
 
     attr_accessor :raw_params, :resource_name
@@ -12,13 +12,13 @@ module TidyStrongParams
       self.resource_name = resource_name
     end
 
-    def self.build_list(*args)
-      new(*args).build_list
+    def self.restrict(*args)
+      new(*args).restrict
     end
 
     class << self
-      def attributes(*attrs)
-        self._attributes = attrs
+      def params(*attrs)
+        self._params = attrs
       end
 
       def required(required)
@@ -26,8 +26,8 @@ module TidyStrongParams
       end
     end
 
-    def build_list
-      required_params.permit(_attributes).to_h
+    def restrict
+      required_params.permit(_params).to_h
     end
 
     def required_params
