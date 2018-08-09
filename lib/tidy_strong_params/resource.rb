@@ -7,19 +7,24 @@ module TidyStrongParams
     end
 
     def name
-      params_class_name.underscore
+      resource.underscore
     end
 
     def strong_params_class
       return @strong_params_class if @strong_params_class
-      klass = "::#{params_class_name}StrongParams".safe_constantize
-      @strong_params_class = klass || TidyStrongParams::StrongParams
+      klass = "::#{params_class_name}".safe_constantize
+      raise Errors::StrongParamsClassUndefinedError.new(params_class_name) unless klass
+      @strong_params_class = klass
     end
 
     private
 
-    def params_class_name
+    def resource
       controller_class.remove('Controller').singularize
+    end
+
+    def params_class_name
+      "#{resource}StrongParams"
     end
   end
 end
