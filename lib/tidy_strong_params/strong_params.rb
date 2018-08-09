@@ -5,11 +5,12 @@ module TidyStrongParams
     self._params = {}
     self._required = nil
 
-    attr_accessor :raw_params, :resource_name
+    attr_accessor :raw_params, :resource_name, :scope
 
-    def initialize(raw_params:, resource_name:)
+    def initialize(raw_params:, resource_name:, scope: nil)
       self.raw_params = raw_params
       self.resource_name = resource_name
+      self.scope = scope
     end
 
     def self.restrict(*args)
@@ -26,8 +27,12 @@ module TidyStrongParams
       end
     end
 
+    def params
+      _params
+    end
+
     def restrict
-      required_params.permit(_params).to_h.tap{ |whitelist| tap_params(whitelist) }
+      required_params.permit(params).to_h.tap{ |whitelist| tap_params(whitelist) }
     end
 
     private

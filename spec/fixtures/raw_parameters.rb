@@ -8,7 +8,7 @@ class RawParameters
           { first_name: 'Bob', last_name: 'Bobson' },
           { first_name: 'Steve', last_name: 'Stephenson', location: 'Stevenage' }
         ],
-        name: 'no allowed'
+        name: 'not allowed'
       }
      )
   end

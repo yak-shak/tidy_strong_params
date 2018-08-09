@@ -1,9 +1,9 @@
+require 'simplecov'
+SimpleCov.start
 require 'bundler/setup'
 require 'rails'
 require 'rails/test_help'
 require 'tidy_strong_params'
-require 'simplecov'
-SimpleCov.start
 
 ENV['RAILS_ENV'] = 'test'
 

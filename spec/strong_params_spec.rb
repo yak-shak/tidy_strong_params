@@ -3,6 +3,8 @@ require 'fixtures/params/original_gangster_strong_params'
 require 'fixtures/params/original_gangster_with_required_strong_params'
 require 'fixtures/params/original_gangster_without_required_strong_params'
 require 'fixtures/params/original_gangster_with_tap_params_strong_params'
+require 'fixtures/params/original_gangster_using_scope_strong_params'
+require 'fixtures/params/original_gangster_with_own_params_method_strong_params'
 require 'fixtures/raw_parameters.rb'
 
 RSpec.describe TidyStrongParams::StrongParams do
@@ -46,7 +48,7 @@ RSpec.describe TidyStrongParams::StrongParams do
       end
     end
 
-    context "required param set to false" do
+    context 'required param set to false' do
       subject { OriginalGangsterWithoutRequiredStrongParams.restrict(raw_params: raw_params, resource_name: resource_name) }
       let(:raw_params) { RawParameters.original_gangster_unnested_params }
       
@@ -61,6 +63,40 @@ RSpec.describe TidyStrongParams::StrongParams do
 
     it "includes tap_params methods modifications" do
       expect(subject[:crazy_meta_param]).to eq(4)
+    end
+  end
+
+  describe '#params' do
+    subject { OriginalGangsterWithOwnParamsMethodStrongParams.restrict(raw_params: raw_params, resource_name: resource_name ) }
+
+    it 'allows params method to be overridden' do
+      expect(subject[:infamy]).to eq(8)
+      expect(subject[:henchmen].first[:first_name]).to eq("Bob")
+      expect(subject[:henchmen].first[:last_name]).to eq(nil)
+    end
+  end
+
+  describe '#scope' do
+    subject { OriginalGangsterUsingScopeStrongParams.restrict(raw_params: raw_params, resource_name: resource_name, scope: scope ) }
+
+    context 'scope not defined' do
+      let(:scope) { nil }
+
+      it 'throws an error' do
+        expect{ subject }.to raise_exception(NoMethodError)
+      end
+    end
+
+    context 'scope defined' do
+      let(:scope) { OpenStruct.new({ id: 1, type: 'user' }) }
+
+      it 'utilizes the set scope' do
+        expect{subject}.to_not raise_exception
+      end
+
+      it 'includes the scope dependant attribute' do
+        expect(subject[:infamy]).to eq(8)
+      end
     end
   end
 end
