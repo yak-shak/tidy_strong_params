@@ -7,7 +7,7 @@ module TidyStrongParams
 
     attr_accessor :raw_params, :resource_name, :scope
 
-    def initialize(raw_params:, resource_name:, scope: nil)
+    def initialize(raw_params:, resource_name: '', scope: nil)
       self.raw_params = raw_params
       self.resource_name = resource_name
       self.scope = scope
