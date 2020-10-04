@@ -45,7 +45,7 @@ The `params` helper method takes the list of parameters you would usually pass a
 
 ##### params (instance method)
 
-The params class method above is the simplist and cleanest way to pass a list of permitted attributes. However if you require more control eg. (conditionally permit params) then you can define your own `params` instance method which should return an array of permitted attributes. eg.
+The params class method above is the simplest and cleanest way to pass a list of permitted attributes. However if you require more control eg. (conditionally permit params) then you can define your own `params` instance method which should return an array of permitted attributes. eg.
 
 ```
 class BookStrongParams < TidyStrongParams::StrongParams
@@ -65,7 +65,7 @@ end
 It overrides anything built using the `params` class method 
 
 ##### `required` (Class method)
-By default params are required to be nested under there resource name. eg. for the books controller it would be equivalent of calling `params.require(:books)`. The name of this required parameter can be changed of disabled (pass false) using the `required` class method.
+By default params are required to be nested under their resource name. eg. for the books controller it would be equivalent of calling `params.require(:books)`. The name of this required parameter can be changed of disabled (pass false) using the `required` class method.
 
 ```
 class BookStrongParams < TidyStrongParams::StrongParams
@@ -79,7 +79,7 @@ expects `{ old_books: { tile: "", publisher: ''} }`
 
 ##### `tap_params` (instance method)
 
-Allows you to tap into and tweak the list of permitted attributes before they are returned. Main difference between this and the params instance method is this method is called after `require` and can be used in conjunction with the `params` class helper.
+Allows you to tap into and tweak the list of permitted attributes before they are returned. The main difference between this and the params instance method, is this method is called after `require` and can be used in conjunction with the `params` class helper.
 
 ```
 class BookStrongParams < TidyStrongParams::StrongParams
@@ -96,7 +96,7 @@ end
 
 ##### `restrict` (class method)
 Although a `tidy_strong_params` method is injected into each controller the `TidyStrongParams::StrongParams` class can be used directly, just pass in the required `raw_params` argument to the `restrict` method.
-Note resource_name is only needed if there is no `required` key declared on the BookStrongParams class. Scope is optional
+Note `resource_name` is only needed if there is no `required` key declared on the BookStrongParams class. Scope is optional
 
 ```
 Class BooksController < ApplicationController
@@ -115,7 +115,7 @@ end
 
 #### `tidy_params_scope` (Class method added to controllers)
 
-As scope for TSP can be set at the controller level which is then passed to the `StrongParams` class. Useful for passing things like `current_user`. If the same scope is used everywhere then may best to set `tidy_params_scope` on the `ApplicationController` 
+As scope for TSP can be set at the controller level which is then passed to the `StrongParams` class. Useful for passing things like `current_user`. If the same scope is used everywhere then may best to set `tidy_params_scope` on the `ApplicationController`.
 
 ```
 Class BooksController < ApplicationController
