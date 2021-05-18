@@ -7,7 +7,7 @@ module TidyStrongParams
     end
 
     def name
-      resource.underscore
+      resource.split('::').last.underscore
     end
 
     def strong_params_class
