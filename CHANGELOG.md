@@ -1,3 +1,7 @@
+### 1.0.3
+
+- Add support for nested controller class ([#10](https://github.com/yak-shak/tidy_strong_params/pull/10)) [AlThomason](https://github.com/AlThomason)
+
 ### 0.1.0.beta.2
 
 *Radical changes to API*
