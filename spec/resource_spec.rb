@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'fixtures/params/original_gangster_strong_params'
+require 'fixtures/params/example_module/example_strong_params'
 
 RSpec.describe TidyStrongParams::Resource do
   let(:controller_class) { 'OriginalGangstersController' }
@@ -7,6 +8,13 @@ RSpec.describe TidyStrongParams::Resource do
 
   it 'returns a name' do
     expect(subject.name).to eq('original_gangster')
+  end
+
+  context 'with a nested module' do
+    let(:controller_class) { 'ExampleModule::ExamplesController' }
+    it 'returns a non-nested name' do
+      expect(subject.name).to eq('example')
+    end
   end
 
   describe '#strong_params_class' do
