@@ -13,8 +13,8 @@ module TidyStrongParams
       self.scope = scope
     end
 
-    def self.restrict(*args)
-      new(*args).restrict
+    def self.restrict(**args)
+      new(**args).restrict
     end
 
     class << self
